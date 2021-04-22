@@ -1,0 +1,39 @@
+{
+  "name": "bwrewritten",
+  "version": "1.0.0",
+  "description": "Desktop client for bwrewritten.com",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "build-mac": "electron-builder build --mac --publish never",
+    "appveyor-build": "electron-builder build --win --publish onTagOrDraft"
+  },
+  "bugs": {
+    "url": "https://github.com/BWRewritten/Bin-Weevils-Rewritten-Client/issues"
+  },
+  "homepage": "https://github.com/cozy-penguin/client#readme",
+  "repository": "https://github.com/BWRewritten/Bin-Weevils-Rewritten-Client",
+  "author": "BWRewritten",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.1.2",
+    "electron-builder": "^22.2.0",
+    "electron-is-dev": "^1.1.0"
+  },
+  "dependencies": {
+    "discord-rpc": "^3.1.4",
+    "electron-is-dev": "^1.1.0",
+    "electron-updater": "^4.2.0",
+    "get-proxy-settings": "^0.1.12",
+    "update-electron-app": "^2.0.1"
+  },
+  "build": {
+    "appId": "com.bwrewritten.desktop",
+    "productName": "Bin Weevils Rewritten",
+    "asar": "false",
+    "win": {
+      "publish": "github"
+    }
+  }
+}

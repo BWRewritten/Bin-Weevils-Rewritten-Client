@@ -1,0 +1,4 @@
+owner: cozy-penguin
+repo: client
+provider: github
+updaterCacheDirName: cozydesktop-updater
