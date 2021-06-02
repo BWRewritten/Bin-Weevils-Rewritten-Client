@@ -5,7 +5,7 @@ This is the web-based client for Bin Weevils Rewritten, solving the problem of F
 - Embedded (Pepper) Flash Player. There's no need to install Flash manually.
 - Automatic client updates to add new fuctionality
 
-This is heavily inspired by Penguin World's client. We reccommend creating a separate play page, eg (https://play.bwrewritten.com) so that Flash is fullscreen.
+This is heavily inspired by Penguin World's client. We reccommend creating a separate play page, eg (https://play.binweevils.net) so that Flash is fullscreen.
 # Development Installation
 `npm install`
 
