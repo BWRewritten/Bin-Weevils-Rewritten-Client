@@ -1,9 +1,9 @@
 # Bn Weevils Rewritten
 This is the web-based client for Bin Weevils Rewritten, solving the problem of Flash ending support in 2020, resulting in obtaining and using Flash harder. This client has many functions, including:
 - Automatically clearing the users' cache when the application is launched (parties and features update instantly!)
-- Discord Rich Presence support. Have a shiny Discord status when playing
+- Discord Rich Presence support. Have a shiny Discord status when playing!
 - Embedded (Pepper) Flash Player. There's no need to install Flash manually.
-- Automatic client updates to add new fuctionality
+- Automatic client updates to add new fuctionality.
 
 This is heavily inspired by Penguin World's client. We reccommend creating a separate play page, eg (https://play.binweevils.net) so that Flash is fullscreen.
 # Development Installation
