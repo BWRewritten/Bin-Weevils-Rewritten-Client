@@ -10,6 +10,7 @@
   "build": {
     "icon": "icon",
     "asar": false,
+    "npmRebuild": false,
     "compression": "maximum",
     "artifactName": "BWR Installer ${version}-${arch}.${ext}",
     "productName": "Bin Weevils Rewritten",
