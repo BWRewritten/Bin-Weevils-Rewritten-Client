@@ -32,6 +32,7 @@
       "icon": "icon.png",
       "target": [
         "deb",
+        "rpm",
         "AppImage",
         "tar.xz"
       ],
@@ -44,13 +45,16 @@
   },
   "homepage": "https://github.com/BWRewritten",
   "repository": "https://github.com/BWRewritten/Bin-Weevils-Rewritten-Client",
-  "author": "BWRewritten",
+  "author": {
+    "name": "BWRewritten",
+    "email": "bwrewritten@gmail.com"
+  },
   "license": "CC0-1.0",
   "scripts": {
     "debugApp": "electron .",
-    "buildWin": "electron-builder --win --x64 --ia32",
+    "buildWin": "electron-builder --win --x64 --ia32 --arm64",
     "buildMac": "electron-builder --mac --x64 --arm64",
-    "buildLinux": "electron-builder --linux deb AppImage tar.xz",
+    "buildLinux": "electron-builder --linux deb rpm AppImage tar.xz --x64 --arm64",
     "buildHelp": "electron-builder --help"
   },
   "devDependencies": {
