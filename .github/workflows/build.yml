@@ -1,0 +1,60 @@
+name: Build Electron App
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            build_cmd: npm run buildWin -- --publish never
+            artifact_name: windows-build
+          - os: macos-latest
+            build_cmd: npm run buildMac -- --publish never
+            artifact_name: macos-build
+          - os: ubuntu-latest
+            build_cmd: npm run buildLinux -- --publish never
+            artifact_name: linux-build
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app (${{ matrix.os }})
+        run: ${{ matrix.build_cmd }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.zip
+            dist/*.AppImage
+            dist/*.tar.xz
+            dist/*.deb
+            dist/*.rpm
+            dist/*.blockmap
+            dist/latest*.yml
+          if-no-files-found: warn
+          retention-days: 30
