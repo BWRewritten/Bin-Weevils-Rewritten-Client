@@ -81,7 +81,7 @@ try {
                 height: 1080,
                 backgroundColor: '#6BC414',
                 title: `Loading BWR v${app.getVersion()} ...`,
-                icon: sysPlatform === 'linux' ? path.join(__dirname, 'icon.png') : sysPlatform === 'darwin' ? path.join(__dirname, 'favicon.ico') : path.join(__dirname, 'assets', 'favicon.ico'),
+                icon: sysPlatform === 'linux' ? path.join(__dirname, 'icon.png') : sysPlatform === 'darwin' ? path.join(__dirname, 'icon.icns') : path.join(__dirname, 'assets', 'favicon.ico'),
                 webPreferences: {
                     preload: path.join(__dirname, 'preload.js'),
                     plugins: true,
