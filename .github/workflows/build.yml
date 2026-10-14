@@ -14,7 +14,7 @@ jobs:
         include:
           - { os: windows-latest, platform: win,   arch: x64 }
           - { os: windows-latest, platform: win,   arch: ia32 }
-          - { os: macos-latest,   platform: mac,   arch: x64 }
+          - { os: macos-15-intel, platform: mac,   arch: x64 }
           - { os: ubuntu-latest,  platform: linux, arch: x64 }
     runs-on: ${{ matrix.os }}
     steps:
@@ -44,3 +44,4 @@ jobs:
             dist/*.rpm
             dist/*.tar.xz
             dist/*.yml
+            dist/*.blockmap
