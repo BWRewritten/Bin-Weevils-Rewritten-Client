@@ -12,7 +12,7 @@ const flash = (file) => ({ from: `assets/flash/${file}`, to: `flash/${file}` });
 module.exports = {
   appId: 'app.binweevils.rewritten',
   productName: 'Bin Weevils Rewritten',
-  artifactName: 'BWR-${version}-${os}-${arch}.${ext}',
+  artifactName: 'BWR-Installer-${version}-${os}-${arch}.${ext}',
   directories: { output: 'dist' },
   asar: false,
   npmRebuild: false,
