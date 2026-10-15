@@ -14,7 +14,7 @@ module.exports = {
   productName: 'Bin Weevils Rewritten',
   artifactName: 'BWR-${version}-${os}-${arch}.${ext}',
   directories: { output: 'dist' },
-  asar: true,
+  asar: false,
   npmRebuild: false,
   compression: 'maximum',
   files: ['main.js', 'preload.js', 'package.json', 'src/**/*', 'assets/app/**/*'],
