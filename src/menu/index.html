@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    margin: 0;
+    padding: 18px 22px 30px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #222;
+    background: #fff;
+  }
+  .icon { display: block; margin: 4px auto 8px; }
+  .title { text-align: center; font-weight: bold; font-size: 16px; }
+  .small { text-align: center; margin-top: 4px; font-size: 12px; color: #666; }
+  .section {
+    margin: 4px 0 8px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: #4c9a0a;
+  }
+  hr { margin: 14px 0; border: 0; border-top: 1px solid #e3e3e3; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 8px 0; }
+  .hint { margin: 0 0 8px; font-size: 12px; color: #888; }
+  .hint.under-button { margin-top: 10px; text-align: center; }
+  button {
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #fff;
+    background: #6BC414;
+    cursor: pointer;
+  }
+  button:hover { background: #5aa80f; }
+  button.wide { width: 100%; padding: 9px; }
+  button.kbd { min-width: 120px; color: #222; background: #f1f1f1; border: 1px solid #ccc; }
+  input[type=text], select { padding: 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  #toast {
+    display: none;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #fff;
+    background: #c0392b;
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="toast"></div>
+  <script src="menu.js"></script>
+</body>
+</html>

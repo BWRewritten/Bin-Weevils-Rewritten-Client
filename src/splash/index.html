@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    user-select: none;
+  }
+  body {
+    -webkit-app-region: drag;
+    background: radial-gradient(circle at 50% 35%, #8ee03a 0%, #6BC414 55%, #4c9a0a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 22px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .3));
+  }
+  #text {
+    min-height: 24px;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .35);
+  }
+  #bar {
+    width: 260px;
+    height: 8px;
+    margin-top: 16px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, .25);
+    overflow: hidden;
+    visibility: hidden;
+  }
+  #fill {
+    width: 0;
+    height: 100%;
+    background: #fff;
+    transition: width .15s;
+  }
+</style>
+</head>
+<body>
+  <img src="../../assets/app/icon.png">
+  <div id="text">Checking for updates...</div>
+  <div id="bar"><div id="fill"></div></div>
+<script>
+  const { ipcRenderer } = require('electron');
+  const text = document.getElementById('text');
+  const bar = document.getElementById('bar');
+  const fill = document.getElementById('fill');
+
+  ipcRenderer.on('status', (event, status) => {
+    text.textContent = status.text;
+    const hasProgress = typeof status.progress === 'number';
+    bar.style.visibility = hasProgress ? 'visible' : 'hidden';
+    if (hasProgress) fill.style.width = status.progress + '%';
+  });
+</script>
+</body>
+</html>
