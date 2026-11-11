@@ -26,6 +26,17 @@ jobs:
       - name: Install rpm tooling
         if: matrix.platform == 'linux'
         run: sudo apt-get update && sudo apt-get install -y rpm
+      - name: Use 32-bit Electron to compile the signing bytecode
+        if: matrix.arch == 'ia32'
+        shell: bash
+        env:
+          npm_config_arch: ia32
+        run: rm -rf node_modules/electron/dist && node node_modules/electron/install.js
+      - name: Write build secret
+        env:
+          BUILD_ARCH: ${{ matrix.arch }}
+          BWR_BUILD_SECRET: ${{ secrets.BWR_BUILD_SECRET }}
+        run: node scripts/write-build-secret.js
       - name: Build
         env:
           BUILD_ARCH: ${{ matrix.arch }}
@@ -35,6 +46,7 @@ jobs:
         with:
           name: bwr-${{ matrix.platform }}-${{ matrix.arch }}
           retention-days: 14
+          if-no-files-found: error
           path: |
             dist/*.exe
             dist/*.dmg
@@ -45,3 +57,18 @@ jobs:
             dist/*.tar.xz
             dist/*.yml
             dist/*.blockmap
+            !dist/builder-debug.yml
+
+  # Nothing here publishes: the builds use --publish never and the token is
+  # read-only. This only gathers every file into one download, ready to attach
+  # to a release made by hand.
+  collect:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact/merge@v4
+        with:
+          name: BWR-release-files
+          pattern: bwr-*
+          delete-merged: true
+          retention-days: 14
