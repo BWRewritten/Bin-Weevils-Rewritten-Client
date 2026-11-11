@@ -15,7 +15,7 @@ jobs:
           - { os: windows-latest, platform: win,   arch: x64 }
           - { os: windows-latest, platform: win,   arch: ia32 }
           - { os: macos-15-intel, platform: mac,   arch: x64 }
-          - { os: ubuntu-latest,  platform: linux, arch: x64 }
+          - { os: ubuntu-24.04,   platform: linux, arch: x64 }
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
