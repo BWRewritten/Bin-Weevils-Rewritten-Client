@@ -17,7 +17,7 @@ You are welcome to build the client yourself or change it, but a locally built o
 ## Building A Local Version
 The code is here for anyone who wants to see how the client works or use it as a starting point for their own Electron project.
 
-You need [Node.js](https://nodejs.org/) 18 (the version the official builds use; newer versions can fail to unpack Electron 11).
+You need [Node.js](https://nodejs.org/) v18 (the version the official builds use; newer versions can fail to unpack Electron 11). If you have newer versions installed and don't feel like necessarily downgrading, consider trying NVM (Node Version Manager). You can find it for [Windows](https://nvm-windows.com) & [Linux](https://github.com/nvm-sh/nvm) machines if you're technical. It will help you easily switch between your Node versions and by extension help with this.
 
 ```
 npm install
