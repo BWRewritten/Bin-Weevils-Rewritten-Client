@@ -112,7 +112,7 @@ const builders = {
             el(
                 "span",
                 {},
-                el("button", { onclick: () => send(it.decId) }, "−"),
+                el("button", { onclick: () => send(it.decId) }, "-"),
                 " ",
                 el("b", {}, read(it.value)),
                 " ",
