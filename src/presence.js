@@ -1,4 +1,4 @@
-const DiscordRPC = require("discord-rpc");
+let DiscordRPC = null;
 
 const CLIENT_ID = "904829685064663090";
 const RETRY_MS = 30000;
@@ -47,6 +47,9 @@ function connect() {
 
     if (client || shuttingDown)
         return;
+
+    if (!DiscordRPC)
+        DiscordRPC = require("discord-rpc");
 
     if (!registered) {
         try {

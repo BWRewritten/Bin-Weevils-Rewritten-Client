@@ -9,10 +9,11 @@ const VIEW_W = 120;
 const VIEW_H = 72;
 const MARGIN = 16;
 
-function createGameWindow() {
+function createGameWindow(show = true) {
     return new BrowserWindow({
         width: 1280,
         height: 720,
+        show,
         backgroundColor: "#6BC414",
         title: "Loading ...",
         icon: chromium.windowIcon(),
@@ -41,6 +42,10 @@ class MainWindow {
 
     get() {
         return this.alive() ? this.win : null;
+    }
+
+    visible() {
+        return this.alive() && this.win.isVisible();
     }
 
     isFullscreen() {
@@ -115,11 +120,23 @@ class MainWindow {
         return child;
     }
 
-    create() {
-        if (this.alive())
+    show() {
+        if (!this.alive() || this.win.isVisible())
             return;
 
-        const win = createGameWindow();
+        this.win.maximize();
+        this.win.show();
+    }
+
+    create(hidden = false) {
+        if (this.alive()) {
+            if (!hidden)
+                this.show();
+
+            return;
+        }
+
+        const win = createGameWindow(!hidden);
 
         const cogView = new BrowserView({
             webPreferences: { nodeIntegration: true, contextIsolation: false, enableRemoteModule: false }
@@ -130,7 +147,9 @@ class MainWindow {
         this.win = win;
         this.cogView = cogView;
 
-        win.maximize();
+        if (!hidden)
+            win.maximize();
+
         win.webContents.setVisualZoomLevelLimits(1, 5);
         win.webContents.setUserAgent(chromium.userAgent());
         win.addBrowserView(cogView);

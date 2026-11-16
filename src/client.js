@@ -13,7 +13,7 @@ const DownloadGuard = require("./download-guard");
 const pinning = require("./pinning");
 const signing = require("./signing");
 const { SHOW_MENU_BAR, ZOOM } = require("./config");
-const { delay, timeout } = require("./utils");
+const { timeout } = require("./utils");
 const { logError } = require("./logger");
 const { createMenuWindow } = require("./menu/menu-window");
 const createMenuLogic = require("./menu/actions");
@@ -188,15 +188,28 @@ class Client {
     async startup() {
         pinning.install((hostname) => this.onPinFailure(hostname));
         signing.install();
+
+        const clock = signing.enabled() ? timeout(signing.syncClock(), 4000).catch(() => {}) : Promise.resolve();
+
         this.downloadGuard.watch();
         this.username.watch();
         this.applyAppMenu();
 
         const sp = splash.show(chromium.windowIcon());
         this.splash = sp;
-        await sp.ready;
         const aborted = () => this.quitting || sp.isClosed();
 
+        sp.closed.then(() => {
+            if (!this.main.visible())
+                app.quit();
+        });
+
+        const preload = clock.then(() => {
+            if (!aborted())
+                this.main.create(true);
+        });
+
+        await sp.ready;
         let pendingUpdate = null;
 
         if (app.isPackaged && !aborted()) {
@@ -210,11 +223,7 @@ class Client {
             return app.quit();
 
         sp.status(`Starting BWR v${app.getVersion()}`, null);
-
-        if (signing.enabled())
-            await timeout(signing.syncClock(), 4000).catch(() => {});
-
-        await delay(500);
+        await preload;
 
         if (aborted())
             return app.quit();
@@ -235,7 +244,7 @@ class Client {
         if (this.splash)
             this.splash.close();
 
-        if (this.quitting || this.main.alive())
+        if (this.quitting)
             return;
 
         try {

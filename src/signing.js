@@ -71,7 +71,7 @@ function syncClock() {
 }
 
 function trackClock() {
-    session.defaultSession.webRequest.onCompleted((details) => {
+    session.defaultSession.webRequest.onCompleted({ urls: ["*://binweevils.app/*", "*://*.binweevils.app/*"] }, (details) => {
         try {
             if (details.fromCache || !details.responseHeaders)
                 return;

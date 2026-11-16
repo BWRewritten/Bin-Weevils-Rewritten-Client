@@ -6,7 +6,6 @@ module.exports = {
         darwin: "PepperFlashPlayer.plugin",
         linux: "libpepflashplayer.so"
     },
-    ELECTRON_TOKENS: ["0.2.4", "0.11.2", "1.233.1", "1.232.5", "1.235.2", "2.70", "8.383", "11.5.0"],
     ZOOM: { step: 0.1, min: 0.25, max: 5 },
     USERNAME_COOKIE: "weevil_name",
     GAME_URL_FRAGMENT: "binweevils.app/game"

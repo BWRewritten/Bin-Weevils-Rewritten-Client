@@ -17,9 +17,11 @@ function show(icon) {
 
     win.setMenu(null);
 
+    const closed = new Promise((resolve) => win.once("closed", resolve));
+
     const ready = new Promise((resolve) => {
         win.webContents.once("did-finish-load", resolve);
-        win.once("closed", resolve);
+        closed.then(resolve);
     });
 
     win.once("ready-to-show", () => {
@@ -31,6 +33,7 @@ function show(icon) {
 
     return {
         ready,
+        closed,
         isClosed: () => win.isDestroyed(),
         status(text, progress) {
             if (win.isDestroyed() || win.webContents.isDestroyed())

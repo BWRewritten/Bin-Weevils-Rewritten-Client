@@ -2,26 +2,34 @@ const { app } = require("electron");
 const fs = require("fs");
 const https = require("https");
 const path = require("path");
-const { autoUpdater } = require("electron-updater");
 const { delay, timeout } = require("./utils");
 
 const REPO = "BWRewritten/Bin-Weevils-Rewritten-Client";
 const RELEASES_URL = `https://github.com/${REPO}/releases`;
 const LATEST_API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
 
-autoUpdater.autoDownload = false;
-autoUpdater.autoInstallOnAppQuit = false;
-autoUpdater.logger = null;
-
-if (process.platform === "win32")
-    autoUpdater.channel = "win-" + process.arch;
-
 let onProgress = null;
+let updater = null;
 
-autoUpdater.on("download-progress", (progress) => {
-    if (onProgress)
-        onProgress(progress.percent);
-});
+function autoUpdater() {
+    if (updater)
+        return updater;
+
+    updater = require("electron-updater").autoUpdater;
+    updater.autoDownload = false;
+    updater.autoInstallOnAppQuit = false;
+    updater.logger = null;
+
+    if (process.platform === "win32")
+        updater.channel = "win-" + process.arch;
+
+    updater.on("download-progress", (progress) => {
+        if (onProgress)
+            onProgress(progress.percent);
+    });
+
+    return updater;
+}
 
 function isWindowsInstall() {
     return fs.existsSync(path.join(path.dirname(process.execPath), `Uninstall ${app.getName()}.exe`));
@@ -92,7 +100,7 @@ async function check() {
         return checkGitHub();
 
     try {
-        const result = await autoUpdater.checkForUpdates();
+        const result = await autoUpdater().checkForUpdates();
         const version = result && result.updateInfo && result.updateInfo.version;
 
         return version && isNewer(version, app.getVersion()) ? { available: true, version } : { available: false };
@@ -104,11 +112,11 @@ async function check() {
 function download(progressCallback) {
     onProgress = progressCallback;
 
-    return autoUpdater.downloadUpdate();
+    return autoUpdater().downloadUpdate();
 }
 
 function install() {
-    autoUpdater.quitAndInstall(true, true);
+    autoUpdater().quitAndInstall(true, true);
 }
 
 async function runLaunchUpdate(splash) {

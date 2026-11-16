@@ -3,3 +3,9 @@ dist/
 npm-debug.log*
 .DS_Store
 Thumbs.db
+src/*.jsc
+src/*.gen.js
+src/build-secret*
+.build-secret
+debug-log*.txt
+server/
